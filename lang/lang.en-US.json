@@ -190,7 +190,9 @@
         "chatCommands": {
             "help": "help",
             "info": "info",
-            "test": "test"
+            "test": "test",
+            "endpoint": "endpoint",
+            "endpoints": "endpoints"
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -199,16 +201,20 @@
             "viewDateSent": "View Date Sent"
         },
         "arguments": {
-            "option": "option"
+            "option": "option",
+            "path": "path"
         },
         "commandDescs": {
             "help": "Find help or contact support.",
             "info": "View bot info.",
-            "test": "Run the test command."
+            "test": "Run the test command.",
+            "endpoint": "show endpoint description.",
+            "endpoints": "show endpoints."
         },
         "argDescs": {
             "helpOption": "Option.",
-            "infoOption": "Option."
+            "infoOption": "Option.",
+            "endpointOption": "Request path."
         },
         "fields": {
             "commands": "Commands",
@@ -290,6 +296,9 @@
             "supportEmbed": "[Join Support Server]({{COM:links.support}})",
             "templateEmbed": "[Discord Bot TypeScript Template]({{COM:links.template}})",
             "voteEmbed": "[Vote for {{COM:bot.name}}!]({{COM:links.vote}})"
+        },
+        "endpointOption":{
+            "path" : "Endpoint Path."
         }
     }
 }

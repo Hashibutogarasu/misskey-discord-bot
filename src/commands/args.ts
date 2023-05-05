@@ -48,4 +48,12 @@ export class Args {
             },
         ],
     };
+    public static readonly ENDPOINT_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.path', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.path'),
+        description: Lang.getRef('argDescs.endpointOption', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.endpointOption'),
+        type: ApplicationCommandOptionType.String,
+        required: true
+    };
 }

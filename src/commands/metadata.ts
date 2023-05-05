@@ -50,6 +50,30 @@ export const ChatCommandMetadata: {
         dm_permission: true,
         default_member_permissions: undefined,
     },
+    ENDPOINT: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.endpoint', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.endpoint'),
+        description: Lang.getRef('commandDescs.endpoint', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.endpoint'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.ENDPOINT_OPTION,
+                required: true,
+            },
+        ],
+    },
+    ENDPOINTS: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.endpoints', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.endpoints'),
+        description: Lang.getRef('commandDescs.endpoints', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.endpoints'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+    }
 };
 
 export const MessageCommandMetadata: {

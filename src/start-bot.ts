@@ -1,9 +1,9 @@
 import { REST } from '@discordjs/rest';
-import { Options, Partials } from 'discord.js';
+import { GatewayIntentBits, Options, Partials } from 'discord.js';
 import { createRequire } from 'node:module';
 
-import { Button } from './buttons/index.js';
-import { HelpCommand, InfoCommand, TestCommand } from './commands/chat/index.js';
+import { Button, ButtonDeferType } from './buttons/index.js';
+import { EndPointCommand, EndpointsCommand, HelpCommand, InfoCommand , TestCommand} from './commands/chat/index.js';
 import {
     ChatCommandMetadata,
     Command,
@@ -34,7 +34,7 @@ import {
 import { Trigger } from './triggers/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../config/config.json');
+export let Config = require('../config/config.json');
 let Logs = require('../lang/logs.json');
 
 async function start(): Promise<void> {
@@ -43,7 +43,14 @@ async function start(): Promise<void> {
 
     // Client
     let client = new CustomClient({
-        intents: Config.client.intents,
+        intents: [
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildMessageTyping,
+            GatewayIntentBits.GuildMessages,
+            GatewayIntentBits.GuildMembers,
+            GatewayIntentBits.GuildModeration,
+            GatewayIntentBits.MessageContent,
+        ],
         partials: (Config.client.partials as string[]).map(partial => Partials[partial]),
         makeCache: Options.cacheWithLimits({
             // Keep default caching behavior
@@ -66,12 +73,16 @@ async function start(): Promise<void> {
         // User Context Commands
         new ViewDateJoined(),
 
+        new EndPointCommand(),
+        new EndpointsCommand()
+
         // TODO: Add new commands here
     ];
 
     // Buttons
     let buttons: Button[] = [
         // TODO: Add new buttons here
+        
     ];
 
     // Reactions
