@@ -35,7 +35,17 @@ import { Trigger } from './triggers/index.js';
 
 const require = createRequire(import.meta.url);
 export let Config = require('../config/config.json');
+const http = require('node:http');
+
 let Logs = require('../lang/logs.json');
+
+// Response for Uptime Robot
+/* https://glitch.com/~pumped-chopper からお借りしました */
+http.createServer(function(request: any, response: { writeHead: (arg0: number, arg1: { 'Content-Type': string; }) => void; end: (arg0: string) => void; })
+{
+	response.writeHead(200, {'Content-Type': 'text/plain'});
+	response.end('Bot is online!');
+}).listen(3000);
 
 async function start(): Promise<void> {
     // Services
