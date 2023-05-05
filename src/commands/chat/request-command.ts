@@ -23,7 +23,7 @@ export class RequestCommand implements Command {
 
         const cli = new misskeyApi.APIClient({
             origin: `https://${instance}`,
-            credential: Config.client.misskeytoken,
+            credential: process.env.MISSKEY_TOKEN,
         });
         
         const request_raw = await cli.request(`${path}`, JSON.parse(json));

@@ -1,5 +1,7 @@
 import { REST } from '@discordjs/rest';
 import { GatewayIntentBits, Options, Partials } from 'discord.js';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { config } from 'dotenv';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
@@ -33,11 +35,14 @@ import {
 } from './services/index.js';
 import { Trigger } from './triggers/index.js';
 
+
 const require = createRequire(import.meta.url);
 export let Config = require('../config/config.json');
 const http = require('node:http');
 
 let Logs = require('../lang/logs.json');
+
+config();
 
 // Response for Uptime Robot
 /* https://glitch.com/~pumped-chopper からお借りしました */
@@ -122,7 +127,7 @@ async function start(): Promise<void> {
 
     // Bot
     let bot = new Bot(
-        Config.client.token,
+        process.env.DISCORD_TOKEN,
         client,
         guildJoinHandler,
         guildLeaveHandler,

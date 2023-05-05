@@ -20,7 +20,7 @@ export class EndPointCommand implements Command {
         
         const cli = new misskeyApi.APIClient({
             origin: `https://${instance}`,
-            credential: Config.client.misskeytoken,
+            credential: process.env.MISSKEY_TOKEN,
         });
         
         const path = intr.options.get('path').value;
