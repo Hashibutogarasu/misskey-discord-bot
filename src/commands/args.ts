@@ -1,8 +1,26 @@
-import { APIApplicationCommandBasicOption, ApplicationCommandOptionType } from 'discord.js';
+import { APIApplicationCommandBasicOption, APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord.js';
 
 import { HelpOption, InfoOption } from '../enums/index.js';
+import { EndpointsArray } from '../misskey/endpoints.js';
 import { Language } from '../models/enum-helpers/index.js';
 import { Lang } from '../services/index.js';
+
+export function getEndPoints() : APIApplicationCommandOptionChoice<string>[]{
+    const choices : Array<APIApplicationCommandOptionChoice<string>> = [];
+    let count = 0;
+    EndpointsArray.forEach((endpoint: string)=>{
+        if(count <= 24){
+            choices.push({
+                name: endpoint,
+                value: endpoint
+            });
+        }
+
+        count++;
+    });
+
+    return choices;
+}
 
 export class Args {
     public static readonly HELP_OPTION: APIApplicationCommandBasicOption = {
@@ -55,5 +73,32 @@ export class Args {
         description_localizations: Lang.getRefLocalizationMap('argDescs.endpointOption'),
         type: ApplicationCommandOptionType.String,
         required: true
+    };
+
+    public static readonly INTANCE_DOMAIN_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.instance', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.instance'),
+        description: Lang.getRef('argDescs.instance', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.instance'),
+        type: ApplicationCommandOptionType.String,
+        required: true,
+    };
+
+    public static readonly REQUEST_PATH_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.request_path', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.request_path'),
+        description: Lang.getRef('argDescs.request_path', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.request_path'),
+        type: ApplicationCommandOptionType.String,
+        required: true,
+        choices: getEndPoints()
+    };
+    public static readonly REQUEST_JSON_OPTION: APIApplicationCommandBasicOption = {
+        name: Lang.getRef('arguments.request_json', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('arguments.request_json'),
+        description: Lang.getRef('argDescs.request_json', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('argDescs.request_json'),
+        type: ApplicationCommandOptionType.String,
+        required: false,
     };
 }

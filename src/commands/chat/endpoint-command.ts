@@ -16,8 +16,10 @@ export class EndPointCommand implements Command {
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
+        const instance = intr.options.get('instance')?.value as string ?? 'misskey.io';
+        
         const cli = new misskeyApi.APIClient({
-            origin: 'https://misskey.io',
+            origin: `https://${instance}`,
             credential: Config.client.misskeytoken,
         });
         

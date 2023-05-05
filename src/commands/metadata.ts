@@ -73,6 +73,35 @@ export const ChatCommandMetadata: {
         description_localizations: Lang.getRefLocalizationMap('commandDescs.endpoints'),
         dm_permission: true,
         default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.INTANCE_DOMAIN_OPTION,
+                required: false,
+            }
+        ]
+    },
+    REQUEST: {
+        type: ApplicationCommandType.ChatInput,
+        name: Lang.getRef('chatCommands.request', Language.Default),
+        name_localizations: Lang.getRefLocalizationMap('chatCommands.request'),
+        description: Lang.getRef('commandDescs.request', Language.Default),
+        description_localizations: Lang.getRefLocalizationMap('commandDescs.request'),
+        dm_permission: true,
+        default_member_permissions: undefined,
+        options: [
+            {
+                ...Args.REQUEST_PATH_OPTION,
+                required: true,
+            },
+            {
+                ...Args.REQUEST_JSON_OPTION,
+                required: true,
+            },
+            {
+                ...Args.INTANCE_DOMAIN_OPTION,
+                required: false,
+            }
+        ],
     }
 };
 

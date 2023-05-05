@@ -1,22 +1,24 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder, PermissionsString } from 'discord.js';
+import { ChatInputCommandInteraction, PermissionsString } from 'discord.js';
 import { RateLimiter } from 'discord.js-rate-limiter';
-import { api as misskeyApi } from 'misskey-js';
+import { Endpoints, api as misskeyApi } from 'misskey-js';
 
+import { MisskeyParser } from '../../misskey-parser/parser.js';
 import { Language } from '../../models/enum-helpers/index.js';
 import { EventData } from '../../models/internal-models.js';
 import { Lang } from '../../services/index.js';
 import { Config } from '../../start-bot.js';
-import { InteractionUtils } from '../../utils/interaction-utils.js';
 import { Command, CommandDeferType } from '../index.js';
 
-export class EndpointsCommand implements Command {
-    public names = [Lang.getRef('chatCommands.endpoints', Language.Default)];
+export class RequestCommand implements Command {
+    public names = [Lang.getRef('chatCommands.request', Language.Default)];
     public cooldown = new RateLimiter(1, 5000);
-    public deferType = CommandDeferType.HIDDEN;
+    public deferType = CommandDeferType.PUBLIC;
     public requireClientPerms: PermissionsString[] = [];
 
     public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
+        const path = intr.options.get('path').value as keyof Endpoints;
+        const json = intr.options.get('json')?.value as string ?? '{}';
         const instance = intr.options.get('instance')?.value as string ?? 'misskey.io';
 
         const cli = new misskeyApi.APIClient({
@@ -24,16 +26,10 @@ export class EndpointsCommand implements Command {
             credential: Config.client.misskeytoken,
         });
         
-        await cli.request('endpoints', {  });
-        
-        const embed = new EmbedBuilder().setTitle('Endpoint List')
-        .setURL('https://misskey-hub.net/docs/api/endpoints.html')
-        .setColor('Green');
+        const request_raw = await cli.request(`${path}`, JSON.parse(json));
 
-        InteractionUtils.send(intr, embed);
+        const embed = new MisskeyParser().parse(request_raw, path);
 
-        await intr.editReply({
-            embeds: [embed],
-        });
+        await intr.editReply({ embeds : [embed] });
     }
 }

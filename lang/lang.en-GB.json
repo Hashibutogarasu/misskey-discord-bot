@@ -192,7 +192,8 @@
             "info": "info",
             "test": "test",
             "endpoint": "endpoint",
-            "endpoints": "endpoints"
+            "endpoints": "endpoints",
+            "request": "request" 
         },
         "userCommands": {
             "viewDateJoined": "View Date Joined"
@@ -202,19 +203,26 @@
         },
         "arguments": {
             "option": "option",
-            "path": "path"
+            "path": "path",
+            "request_path" : "path",
+            "request_json": "json",
+            "instance" : "instance"
         },
         "commandDescs": {
             "help": "Find help or contact support.",
             "info": "View bot info.",
             "test": "Run the test command.",
             "endpoint": "show endpoint description.",
-            "endpoints": "show endpoints."
+            "endpoints": "show endpoints.",
+            "request": "request to misskey"
         },
         "argDescs": {
             "helpOption": "Option.",
             "infoOption": "Option.",
-            "endpointOption": "Request path."
+            "endpointOption": "Request path.",
+            "request_path": "Request api path. example: notes//show",
+            "request_json": "Json text.",
+            "instance": "example: misskey.io"
         },
         "fields": {
             "commands": "Commands",
